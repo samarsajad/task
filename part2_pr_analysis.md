@@ -25,18 +25,18 @@ In order to specify precisely which metadata fields should be taken into account
 - Added support for configurable duplicate matching fields
 - Added singleton handling support
 
-(beets/dbcore/db.py)[https://github.com/beetbox/beets/blob/master/beets/dbcore/db.py]
+https://github.com/beetbox/beets/blob/master/beets/dbcore/db.py
 - Added reusable query-generation helpers
 - Added `field_query` and `all_fields_query` utilities
 - Refactored AND-based duplicate query construction
 
-[https://github.com/beetbox/beets/blob/master/docs/reference/config.rst]
+https://github.com/beetbox/beets/blob/master/docs/reference/config.rst
 - Added documentation for the new `duplicate_keys` configuration option
 
-[https://github.com/beetbox/beets/blob/master/docs/changelog.rst]
+https://github.com/beetbox/beets/blob/master/docs/changelog.rst
 - Added changelog entry for the feature
 
-[https://github.com/beetbox/beets/blob/master/beets/config_default.yaml]
+https://github.com/beetbox/beets/blob/master/beets/config_default.yaml
 - Added default `duplicate_keys` configuration:
 
 ```yaml
@@ -79,7 +79,7 @@ By storing intermediate computation results in variables before to assertions, t
 ## Files / Components Modified
 
 ### `tests/metagpt/utils/test_text.py`
-[https://github.com/FoundationAgents/MetaGPT/blob/main/tests/metagpt/utils/test_text.py]
+https://github.com/FoundationAgents/MetaGPT/blob/main/tests/metagpt/utils/test_text.py
 - Updated failing unit tests related to text utility functions
 - Replaced generic OpenAI model identifiers with pinned versioned models
 - Improved readability of assertions by storing intermediate values
