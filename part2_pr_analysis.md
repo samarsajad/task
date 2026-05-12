@@ -25,18 +25,18 @@ In order to specify precisely which metadata fields should be taken into account
 - Added support for configurable duplicate matching fields
 - Added singleton handling support
 
-### `beets/dbcore/db.py`
+[https://github.com/beetbox/beets/blob/master/beets/dbcore/db.py]
 - Added reusable query-generation helpers
 - Added `field_query` and `all_fields_query` utilities
 - Refactored AND-based duplicate query construction
 
-### `docs/reference/config.rst`
+[https://github.com/beetbox/beets/blob/master/docs/reference/config.rst]
 - Added documentation for the new `duplicate_keys` configuration option
 
-### `docs/changelog.rst`
+[https://github.com/beetbox/beets/blob/master/docs/changelog.rst]
 - Added changelog entry for the feature
 
-### `beets/config_default.yaml`
+[https://github.com/beetbox/beets/blob/master/beets/config_default.yaml]
 - Added default `duplicate_keys` configuration:
 
 ```yaml
