@@ -25,7 +25,7 @@ In order to specify precisely which metadata fields should be taken into account
 - Added support for configurable duplicate matching fields
 - Added singleton handling support
 
-[https://github.com/beetbox/beets/blob/master/beets/dbcore/db.py]
+(beets/dbcore/db.py)[https://github.com/beetbox/beets/blob/master/beets/dbcore/db.py]
 - Added reusable query-generation helpers
 - Added `field_query` and `all_fields_query` utilities
 - Refactored AND-based duplicate query construction
