@@ -79,6 +79,7 @@ By storing intermediate computation results in variables before to assertions, t
 ## Files / Components Modified
 
 ### `tests/metagpt/utils/test_text.py`
+[https://github.com/FoundationAgents/MetaGPT/blob/main/tests/metagpt/utils/test_text.py]
 - Updated failing unit tests related to text utility functions
 - Replaced generic OpenAI model identifiers with pinned versioned models
 - Improved readability of assertions by storing intermediate values
