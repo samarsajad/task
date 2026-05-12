@@ -1,22 +1,22 @@
 # 3.1.1 Repository Context
 
-The `beets` repository is an open-source music library management system designed to help users organize and maintain large digital music collections. The application automatically tags music files using metadata from external databases such as MusicBrainz and provides tools for importing, renaming, organizing, and querying audio files. It is primarily used through a command-line interface and supports a large plugin ecosystem that extends its functionality.
+The `beets` repository is an open-source music library management system designed to help users organize and maintain large digital music collections. It offers features for importing, renaming, organizing and querying audio files in addition to automatically tagging music files using metadata from external databases like MusicBrainz. It is mainly utilized via a command-line interface and has a sizable plugin ecosystem that expands its capabilities.
 
-The intended users are music enthusiasts, collectors, archivists, and advanced users who maintain structured music libraries across local storage systems. Many users manage thousands of songs and albums in different formats, editions, and releases. Since manually organizing such collections is time-consuming and error-prone, beets automates metadata correction and file management.
+Music lovers, collectors, archivists, and sophisticated users who keep organized music libraries across local storage systems are the target audience. Thousands of songs and albums in various formats, editions and releases are managed by several users. Beets automates file management and metadata rectification because manually managing such collections is laborious and prone to mistakes.
 
-The repository addresses the domain of digital media organization and metadata management. One of its key challenges is identifying duplicate content during imports. Duplicate detection is important because users often re-import albums, download updated metadata, or maintain multiple versions of the same release. Incorrect duplicate detection can lead to unwanted skipping, replacement, or merging of albums and tracks. Therefore, the importer subsystem must balance automation with flexibility while supporting different library organization strategies. The project also emphasizes extensibility, allowing users to customize import behavior using configuration files and plugins.
+The repository covers the fields of metadata management and digital media organization. Finding duplicate content during imports is one of its main problems. Because users frequently re-import albums, download updated information, or keep numerous versions of the same release, duplicate detection is crucial. Unwanted album and track skipping, replacement or merger might result from incorrect duplicate detection. As a result, the importer subsystem needs to accommodate various library organization techniques while striking a balance between automation and flexibility. Additionally, the project places a strong emphasis on extensibility, enabling users to modify import behavior using configuration files and plugins.
 
 ---
 
 # 3.1.2 Pull Request Description
 
-PR #4199 introduces configurable duplicate detection keys for the beets importer system. Before this change, duplicate detection used hardcoded metadata fields. Albums were identified using fields such as `albumartist` and `album`, while tracks were identified using `artist` and `title`. This fixed approach worked for simple libraries but caused problems for users who stored multiple editions or variations of the same music release.
+PR #4199 introduces configurable duplicate detection keys for the beets importer system. Duplicate detection relied on hardcoded metadata fields prior to this modification. Fields like `albumartist` and `album` were used to identify albums and `artist` and `title` were used to identify tracks. Users who kept several editions or variations of the same music release encountered difficulties with this fixed approach which was effective for modest libraries.
 
-For example, a user might have a vinyl edition, remastered edition, and digital edition of the same album. Since the importer only checked a limited set of fields, these versions could incorrectly be marked as duplicates even though the user wanted to keep all of them. The previous implementation also lacked support for flexible metadata fields and custom duplicate-matching strategies.
+For instance, a user may possess a digital, remastered and vinyl version of the same album. These versions might be mistakenly labeled as duplicates even though the user intended to maintain all of them since the importer only examined a small number of fields. Additionally, specific duplicate matching techniques and configurable metadata fields were not supported in the earlier implementation.
 
-The PR solves this problem by adding a new configuration option called `duplicate_keys`. Users can now define which metadata fields should be used during duplicate detection for albums and individual tracks. The implementation replaces hardcoded comparisons with dynamically generated queries based on configured fields. It also supports flexible attributes and singleton imports.
+The PR adds a new configuration option named `duplicate_keys` to address this issue. For both individual tracks and albums, users can now specify which metadata fields should be used for duplicate detection. The approach uses dynamically created queries based on defined fields in place of hardcoded comparisons. Additionally, it allows for singleton imports and flexible characteristics.
 
-As a result, duplicate detection becomes customizable and more accurate for advanced music library workflows. The new implementation preserves backward compatibility by keeping the original fields as default values, ensuring existing users are not affected unless they explicitly change the configuration.
+Duplicate detection becomes more accurate and flexible for sophisticated music library procedures as a result. By maintaining the original fields as default settings, the new design maintains backward compatibility and guarantees that current users are unaffected unless they specifically modify the configuration.
 
 ---
 
@@ -89,26 +89,8 @@ duplicate_keys:
     album: albumartist album
     item: artist title
 ```
-The importer must dynamically build duplicate detection queries using the configured fields instead of relying on hardcoded comparisons.
+Instead than utilizing hardcoded comparisons, the importer must dynamically construct duplicate detection queries using the configured attributes. The solution should enable flexible/custom metadata attributes during duplicate checks and add reusable query-generation aids for model field matching. Item-level duplicate keys should be used for singleton imports, and the implementation must maintain backward compatibility by using the default fields. The importer should create AND-based duplication queries over all configurable fields and refrain from mistakenly identifying duplicates when the same files are being re-imported. It is necessary to modify the current importer logic so that it uses metadata dictionaries rather than fixed tuples.
 
-## Requirements
-- Add reusable query-generation helpers for model field matching.
-- Support flexible/custom metadata attributes during duplicate checks.
-- Ensure singleton imports use item-level duplicate keys.
-- Preserve backward compatibility by keeping the existing fields as defaults.
-- Avoid falsely detecting duplicates when the same files are being re-imported.
-- Ensure duplicate queries use AND-based matching across all configured fields.
-- Update importer logic to work with metadata dictionaries instead of fixed tuples.
-## Testing Requirements
-- Add unit tests for default duplicate behavior.
-- Add tests for custom duplicate keys.
-- Add tests for flexible metadata fields.
-- Add tests for singleton imports.
-- Verify that albums differing in at least one configured field are treated as separate entries.
-- Verify that re-importing identical file paths does not create false duplicates.
-## Edge Cases to Consider
-- Missing metadata values
-- Flexible attributes not present in default schemas
-- Large numbers of duplicate fields
-- Re-import scenarios
-- Singleton and album imports using different duplicate strategies
+Comprehensive test coverage should also be part of the implementation. Include unit tests for singleton imports, flexible metadata fields, customizable duplicate keys, default duplicate behavior, and duplicate differentiation behavior. The tests should confirm that re-importing identical file paths does not result in erroneous duplicate detections and that albums that differ in at least one specified field are handled as distinct entries.
+
+When putting the functionality into practice, take into account edge cases like missing metadata values, flexible attributes that aren't included in the default schema, a lot of duplicate fields, re-import situations and distinct duplication handling techniques for album imports and singleton imports. Updates to the documentation and changelog outlining the new duplicate_keys configuration option and its anticipated behavior should also be included of the final implementation.
