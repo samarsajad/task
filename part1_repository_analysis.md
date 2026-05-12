@@ -46,8 +46,6 @@ This makes Airbyte a polyglot engineering platform rather than a Python-primary 
 
 # Repository Comparison Table
 
-# Repository Comparison Table
-
 | Repository | Python-Primary? | Primary Purpose / Functionality | Key Dependencies | Main Architecture Patterns | Dominant Architecture Pattern | Target Use Case / Domain | Domain Category |
 |---|---|---|---|---|---|---|---|
 | [FoundationAgents / MetaGPT](https://github.com/FoundationAgents/MetaGPT) | Yes | Multi-agent AI software engineering framework that simulates roles like product manager, architect, and engineer to generate software from natural language requirements. | Python, OpenAI/LLM APIs, `transformers`, `torch`, `tensorflow`, async orchestration libraries | Multi-agent architecture, role-based orchestration, SOP-driven workflows, message-passing collaboration, modular agent pipelines | Multi-agent orchestration | AI agents, autonomous software development, natural-language programming, workflow automation | AI orchestration |
